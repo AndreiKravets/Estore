@@ -1,0 +1,44 @@
+.cta-block{
+    background-image: url(bg.jpg);
+    background-size: cover;
+    background-position: left;
+    border-radius: 0.3rem;
+}
+.mask{
+    background-color: rgba(0, 0, 0, 0.56);
+    color: #007bff;
+}
+hr{
+    border-top: 1px solid rgb(0, 123, 255);
+}
+.catalog .catalog-item{
+    cursor: pointer;
+}
+.catalog .catalog-item img{
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 21%, 100% 0, 45% 0%);
+    -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 21%, 100% 0, 45% 0%);
+    transition: clip-path 0.35s;
+    transition: -webkit-clip-path 0.35s;
+}
+.catalog .catalog-item:hover img{
+    clip-path: inset(25% 0 25% 0 round 0 25% 0 25%);
+    -webkit-clip-path: inset(25% 0 25% 0 round 0 25% 0 25%);
+    /*    border-radius: 0;
+    box-shadow: 0 0 0 10px #F8B83C, 0 0 0 25px #EB7722;
+    transform: scale(1.1) rotate(45deg);
+    background: #DACFCB;*/
+}
+.headline-price {
+    text-shadow: 1px 1px 1px silver,
+               -1px 1px 1px silver;
+    color: black;
+    transition: all .5s;
+}
+.headline-price:hover {
+    text-shadow: -1px -1px 1px silver,
+                 1px -1px 1px silver;
+    color: white;
+}
+.active{
+    background-color: red;
+}
