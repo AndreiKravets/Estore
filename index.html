@@ -15,7 +15,34 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		
+    <p id="welcome" ></p>
+		<form>
+  <div id="login_form" class="form-row align-items-center">
+    <div class="col-auto">
+      <label class="sr-only" for="inlineFormInput">Name</label>
+      <input type="text" class="form-control mb-2 " id="inlineFormInput" placeholder="Jane Doe">
+      <div id="errorName" class="invalid-feedback">
+       
+      </div>
+    </div>
+    <div class="col-auto">
+     
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">@</div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="E-mail">
+        <div id="mailName" class="invalid-feedback">
+       
+      </div>
+      </div>
+    </div>
+    
+    <div class="col-auto">
+      <button type="submit" id="form_submit" class="btn btn-primary mb-2">Submit</button>
+    </div>
+  </div>
+</form>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="navbar-nav">
 			<li class="nav-item active">
@@ -24,14 +51,18 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#">Link</a>
 			</li>
+      <li class="nav-item" id= "Cart">
+        
+      </li>
 			</ul>
 		</div>
+
 	</nav>
 
 	<div class="container">
 		<div class="row my-3">
 			<div class="col">
-				<h1>Catalog</h1>
+			
 			</div>
 		</div>
 		<div class="row">
@@ -39,7 +70,7 @@
 				<input id="s" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 				<button id="search" class="btn btn-outline-success my-2 my-sm-0">Search</button>
               
-			
+	
 			<button type="button" class="btn btn-outline-success my-2 my-sm-0 ml-auto" data-toggle="modal" data-target="#exampleModalCenter">
  			Add product
 		</button>
@@ -114,7 +145,15 @@
   <input class="form-check-input" type="radio" id="inlineCheckbox3" name="inlineCheckbox" value="бежевый">
   <label class="form-check-label" for="inlineCheckbox3">бежевый</label>
 </div>
-
+<br>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" id="inlineCheckbox4" name="inlineCheckboxPrice" value="1">
+  <label class="form-check-label" for="inlineCheckbox4">от дорогих к дешевым</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" id="inlineCheckbox5" name="inlineCheckboxPrice" value="0">
+  <label class="form-check-label" for="inlineCheckbox5">и наоборот</label>
+</div>
 <div id="catalog" class="row catalog"></div>
 		<nav id="pagination"></nav>
 	</div>
@@ -122,6 +161,43 @@
 		<p id="list"></p>	
 	</div> 
 	
+
+
+
+
+
+
+
+
+  <div id="product_more" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id = "modal_name" class="modal-title">Product name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class = "modal_close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div  class="col-12"><img id="modal_img" class= "w-100" src="images/bg-01.jpg"></div>
+        <div id = "modal_discription"class="col-12">This is very cool aaa. Nice colorfull and quality</div>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">buy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

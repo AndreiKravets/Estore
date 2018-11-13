@@ -30,11 +30,16 @@ const addToProduct = document.getElementById("addToProduct");
 
 function createPagination(array_products){
   let link, li, ul;
+  const data_link = "page-item";
   pagination.innerHTML = "";
   ul = createNewElement("ul", null, "pagination");
   for(let i = 0; i < Math.ceil(array_products.length / per_page); i++){
     link = createNewElement("a", i+1, "page-link",[{"name":"data-link", "value":i}]);
-    li = attachChilderToParent(createNewElement("li", null, "page-item"), [link]);
+
+    if (i==current_page) {
+      li = attachChilderToParent(createNewElement("li", null, data_link + " active"), [link]);}
+      else {li = attachChilderToParent(createNewElement("li", null, data_link), [link]);}
+    
     ul.appendChild(li);
   }
   pagination.appendChild(ul);
@@ -44,16 +49,38 @@ function createPagination(array_products){
 
       current_page = e.target.dataset.link;
       renderProducts(array_products);
-
-      Array.from(pag_li).map((el)=>el.classList.remove("active"));
-      e.target.parentElement.classList.add("active");
-      
+      createPagination(array_products);
     });
   });
-};
+
   
  
-    
+var product_more = document.getElementsByClassName("product_more");
+ Array.from(product_more).map((el)=>{
+    el.addEventListener("click", (e)=>{
+     e.preventDefault();
+  const modal = document.getElementById ("product_more");
+   
+   document.getElementById ("modal_name").innerHTML=products[e.target.dataset.id].name;
+   document.getElementById ("modal_img").src="images/"+products[e.target.dataset.id].image;
+
+   document.getElementById ("modal_discription").innerHTML=products[e.target.dataset.id].description;
+   modal.style.display = "block";
+   modal.setAttribute("class","modal fade show");
+console.log(products[e.target.dataset.id]);
+// console.log(modal_names);
+var modal_close = document.getElementsByClassName ("modal_close");
+Array.from(modal_close).map((el)=>{
+el.addEventListener("click", (e)=>{
+  modal.style.display = "none";
+});
+});
+
+    });
+  });
+
+
+  };  
       
     
 
@@ -68,76 +95,17 @@ function createNewElement(tag, innerContent=null, classStr=null, attr=null){
 
   return el;
 }
-// <!-- Button trigger modal -->
-// <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-//   Запустить модальное окно
-// </button>
-
-// <!-- Modal -->
-// <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-//   <div class="modal-dialog" role="document">
-//     <div class="modal-content">
-//       <div class="modal-header">
-//         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-//         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-//           <span aria-hidden="true">&times;</span>
-//         </button>
-//       </div>
-//       <div class="modal-body">
-//         ...
-//       </div>
-//       <div class="modal-footer">
-//         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-//         <button type="button" class="btn btn-primary">Save changes</button>
-//       </div>
-//     </div>
-//   </div>
-// </div>
 
 
-function createCard(product){
+function createCard(product, i){
   var link = createNewElement("a", "Add to cart", "btn btn-primary",[{"name":"href", "value":"#"}]);
-  var linkmore = createNewElement("button", "подробнее", "btn btn-warning", [{"name":"data-toggle", "value":"modal"}, {"name":"data-target", "value":"#exampleModal"+product.id}]);
+  var linkmore = createNewElement("a", "more", "btn btn-success product_more", [{"name":"href", "value":"#"},{"name":"data-id", "value":i}]);
  
-
-
-var span = createNewElement("span", "&times;", null,[{"name":"aria-hidden", "value":"true"}]);
-var btn_close = attachChilderToParent(createNewElement("button", null, "close", [{"name":"data-dismiss", "value":"modal"}, {"name":"type", "value":"button"},{"name":"aria-label", "value":"Close"}]),[span]);
-var h5 = createNewElement("h5", "подробнее" , "modal-title" , [{"name":"id", "value":"exampleModalLabel"}]);
-
-
-var div_modal_heder = attachChilderToParent(createNewElement("div", null, "modal-header"), [h5,btn_close]);
-
-var description = createNewElement("p", product.more ,null);
-
-var div_modal_body = attachChilderToParent(createNewElement("div", null, "modal-body"), [description]);
-
-var btn_secondary = createNewElement("button", "Close" , "btn btn-secondary", [{"name":"data-dismiss", "value":"modal"}, {"name":"type", "value":"button"}]);
-var btn_save = createNewElement("button", "Save" , "btn btn-primary", [{"name":"type", "value":"button"}]);
-
-var div_modal_footer = attachChilderToParent(createNewElement("div", null, "modal-footer"), [btn_secondary,btn_save]);
-
-
-var div_modal_content = attachChilderToParent(createNewElement("div", null, "modal-content"), [div_modal_heder,div_modal_body,div_modal_footer]);
-
-
-var div_modal_dialog = attachChilderToParent(createNewElement("div", null, "modal-dialog" ,[{"name":"role", "value":"document"}]), [div_modal_content]);
-
-var modal_fade = attachChilderToParent(createNewElement("div", null, "modal fade", [{"name":"id", "value":"exampleModal"+product.id}, {"name":"tabindex", "value":"-1"},{"name":"role", "value":"dialog"},{"name":"aria-labelledby", "value":"exampleModalLabel"},{"name":"aria-hidden", "value":"true"}]),[div_modal_dialog]);
-
-console.log(div_modal_body)
-
-
-
-
-
-
-
-  var headline = createNewElement("h4", product.price, "headline-price");
+ var headline = createNewElement("h4", product.price, "headline-price");
   var p = createNewElement("p", product.description, "card-text");
   var title = createNewElement("h5", product.name, "card-title");
 
-  var cardBody = attachChilderToParent(createNewElement("div", null, "card-body"), [title,p,headline,link,linkmore,modal_fade]);
+  var cardBody = attachChilderToParent(createNewElement("div", null, "card-body"), [title,p,headline,link,linkmore]);
 
   var image = createNewElement("img", null, "card-img-top", [{"name":"src", "value":"images/"+product.image},{"name":"alt", "value":product.name}]);
 
@@ -166,7 +134,7 @@ function isLastProductInPage(i, array_products){
 function renderProducts(array_products){
   catalog.innerHTML = "";
   for(var i = startFromFirstProducts(); isLastProductInPage(i,array_products); i++){
-    catalog.appendChild(createCard(array_products[i]));
+    catalog.appendChild(createCard(array_products[i],i));
   }
 }
 
@@ -202,7 +170,29 @@ function filterAndRenderProducts(){
     }
 
 
+   var check=document.getElementsByName('inlineCheckboxPrice');
+      
+ function compareNumeric(a, b) {
+         if (a.price > b.price) return 1;
+         if (a.price < b.price) return -1;
+        };
 
+
+    for (var i=0;i<check.length; i++) {
+        if (check[i].checked) {
+         
+           if (check[i].value == 0) {
+            search_products.sort(compareNumeric);
+           }
+
+          else{
+            search_products.sort(compareNumeric);
+            search_products.reverse();
+          }
+      
+          
+        }
+    }
 
 
 
@@ -252,3 +242,99 @@ addToProduct.addEventListener("click", (e)=>{
 });
 
 
+
+
+const submitHandler = (e) => {
+    e.preventDefault();
+  
+
+      function submit (){
+          if (errorslist.length == 0 && errorslist1.length == 0) {
+            window.localStorage.userName = userName;
+            window.localStorage.mail = mail;
+            document.getElementById("login_form").style.display = "none";
+           document.getElementById("welcome").innerHTML = "Welcome "+ userName;
+           document.getElementById("Cart").innerHTML = '<a class="nav-link" href="#">Cart</a>';
+          }
+           };
+
+    let errorslist = [];
+
+    const userName = document.getElementById("inlineFormInput").value;
+
+    let errorslist1 = [];
+
+    const mail = document.getElementById("inlineFormInputGroup").value;
+    
+
+    if (! isLoverCaseInPass(userName)){
+      errorslist.push("enter a-z");
+    }
+
+    if (! isUpperCaseInPass(userName)){
+      errorslist.push("enter A-Z");
+    }
+
+    // if (! isNumberInPass(userName)){
+    //   errorslist.push("enter 0-9");
+    // }
+
+    if (errorslist.length >0) {
+      const foo = document.getElementById("errorName");
+      foo.innerHTML = errorslist.join(" ");
+      document.getElementById("inlineFormInput").classList.add("is-invalid");
+    }
+    else{
+      document.getElementById("inlineFormInput").classList.remove("is-invalid");
+     
+    }
+
+
+
+
+    if (! mailInPass(mail)){
+      errorslist1.push("a-z @mail.com");
+    }
+
+
+    if (errorslist1.length >0) {
+      const foo1 = document.getElementById("mailName");
+      foo1.innerHTML = errorslist1;
+      document.getElementById("inlineFormInputGroup").classList.add("is-invalid");
+    }else{
+      document.getElementById("inlineFormInputGroup").classList.remove("is-invalid");
+       submit ();
+
+    }
+
+
+
+
+
+
+}
+
+document.addEventListener("submit", submitHandler, false);
+
+function isLoverCaseInPass(pass){
+    return /[a-z]/.test(pass);
+}
+
+function isUpperCaseInPass(pass){
+    return /[A-Z]/.test(pass);
+}
+
+// function isNumberInPass(pass){
+//     return /\d/.test(pass);
+// }
+
+
+function mailInPass(pass){
+  var r = /^\w+@\w+\.\w{2,4}$/i;
+    return r.test(pass);
+}
+
+
+   
+
+    

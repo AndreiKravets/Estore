@@ -39,6 +39,13 @@ hr{
                  1px -1px 1px silver;
     color: white;
 }
-.active{
-    background-color: red;
+.product_more{
+    margin: 10px;
+}
+.modal{
+    background-color:rgba(0,0,0,0.58823456789); 
+}
+#welcome{
+    color:white;
+    margin: 20px;
 }
