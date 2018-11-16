@@ -49,3 +49,6 @@ hr{
     color:white;
     margin: 20px;
 }
+#cart_oll {
+    display: none;
+}
